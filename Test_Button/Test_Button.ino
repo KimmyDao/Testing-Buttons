@@ -6,6 +6,15 @@
 Adafruit_NeoPixel pixels (NUMPIXELS, 9, NEO_GRB + NEO_KHZ800);
 
 int x;
+int y;
+
+
+#define Red 943
+#define Orange 8
+#define Yellow 350
+#define Green 1023
+#define Blue 400
+#define Purple 800
 
 void setup() {
   // put your setup code here, to run once:
