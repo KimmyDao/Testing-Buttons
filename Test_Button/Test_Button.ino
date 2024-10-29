@@ -20,18 +20,34 @@ void loop() {
   //Serial.println(x);
   delay(200);
 
-  if (x == 0) {
+  if ((x == Green) && (y == Green)) {
     Serial.println("GREEN");
     for (int i = 0; i < NUMPIXELS; i++) {
       pixels.setPixelColor(i, pixels.Color(0, 150, 0));
     }
   }
-  if (x == 1) {
+
+  if ((x == Red) && (y == Red)) {
     Serial.println("RED");
     for (int i = 0; i < NUMPIXELS; i++) {
       pixels.setPixelColor(i, pixels.Color(150, 0, 0));
     }
   }
+
+  if ((x > Blue) && (y < Red)) {
+    Serial.println("PURPLE");
+    for (int i = 0; i < NUMPIXELS; i++) {
+      pixels.setPixelColor(i, pixels.Color(50, 0, 150));
+    }
+  }
+
+  if ((x / 2 < Red) && (y < Green)) {
+    Serial.println("YELLOW");
+    for (int i = 0; i < NUMPIXELS; i++) {
+      pixels.setPixelColor(i, pixels.Color(100, 150, 0));
+    }
+  }
+
   pixels.show();
   pixels.clear();
 }
