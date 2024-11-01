@@ -9,18 +9,19 @@ Adafruit_NeoPixel pixels (NUMPIXELS, 9, NEO_GRB + NEO_KHZ800);
 #include <Adafruit_GFX.h>
 #include "Adafruit_LEDBackpack.h"
 
-Adafruit_7segment matrix = Adafruit_7segment();
+Adafruit_7segment matrix1 = Adafruit_7segment();
+Adafruit_7segment matrix2 = Adafruit_7segment();
 
 int x;
 int y;
 
 
-#define Red 943
-#define Orange 8
-#define Yellow 350
-#define Green 1023
-#define Blue 400
-#define Purple 800
+#define RED 943
+#define ORANGE 8
+#define YELLOW 350
+#define GREEN 900
+#define BLUE 400
+#define PURPLE 800
 
 void setup() {
   // put your setup code here, to run once:
@@ -29,28 +30,27 @@ void setup() {
   Serial.begin(9600);
   Serial.println("7 Segment Backpack Test");
 #endif
-  matrix.begin(0x70);
+  matrix1.begin(0x70);
+//  matrix2.begin(0x72)
+  pixels.begin();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  pixels.begin();
+
   x = analogRead(3);
-  y = analogRead(2);
-  //  Serial.println(x);
-  delay(200);
-
   // Displaying value of Pentiometer 1
-  matrix.print(x);
-  matrix.writeDisplay();
+  matrix1.print(x);
+  matrix1.writeDisplay();
   delay(50);
 
-  // Displaying value of Pentiometer 2
-  matrix.print(y);
-  matrix.writeDisplay();
-  delay(50);
+  /*  y = analogRead(2);
+    // Displaying value of Pentiometer 2
+    matrix.print(y);
+    matrix.writeDisplay();
+    delay(50); */
 
-  if ((x == Green) && (y == Green)) {
+  if ((x > GREEN) && (y > GREEN)) {
     Serial.println("GREEN");
     Serial.println(x);
     Serial.println(y);
@@ -59,7 +59,7 @@ void loop() {
     }
   }
 
-  if ((x == Red) && (y == Red)) {
+  if ((x == RED) && (y == RED)) {
     Serial.println("RED");
     Serial.println(x);
     Serial.println(y);
@@ -68,7 +68,16 @@ void loop() {
     }
   }
 
-  if ((x > Blue) && (y < Red)) {
+    if ((x == BLUE) && (y == BLUE)) {
+    Serial.println("BLUE");
+    Serial.println(x);
+    Serial.println(y);
+    for (int i = 0; i < NUMPIXELS; i++) {
+      pixels.setPixelColor(i, pixels.Color(0, 0, 150));
+    }
+  }
+
+  if ((x == BLUE) && (y < RED)) {
     Serial.println("PURPLE");
     Serial.println(x);
     Serial.println(y);
@@ -77,7 +86,7 @@ void loop() {
     }
   }
 
-  if ((x / 2 < Red) && (y < Green)) {
+  if ((x / 2 == RED) && (y < GREEN)) {
     Serial.println("YELLOW");
     Serial.println(x);
     Serial.println(y);
